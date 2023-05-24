@@ -52,14 +52,12 @@ function Navbar() {
                             </Typography>
                         </Box>
                         </Link>
-                        
-                        <Link to='/login' className="text-decorator-none">
-                            <Box mx={6} style={{ cursor: "pointer"}}>
+                       
+                            <Box mx={6} style={{ cursor: "pointer"}} onClick= {goLogout}>
                                 <Typography variant="h6" style={{color:"#ffba08", fontWeight:"600"}}>
                                     Logout
                                 </Typography>
                             </Box>
-                        </Link>
                         
                     </Box>
                 </Toolbar>
