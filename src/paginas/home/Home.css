@@ -3,16 +3,16 @@
 }
 
 .titulo{
-   color: white !important;
+   color:#964429 !important;
    font-weight: bold !important;
 }
 
 .botao{
-    border-color: white !important;
-    background-color: #3F51B5;
-    color: white !important;
+    border-color:#964429 !important;
+    background-color: #009DDC;
+    color: #964429 !important;
 }
 
 .postagens{
-    background-color: white;
+    background-color:#F7F0D9;
 }

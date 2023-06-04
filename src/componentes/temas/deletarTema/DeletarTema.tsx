@@ -6,50 +6,101 @@ import {useNavigate, useParams } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import { buscaId, deleteId } from '../../../services/Service';
 import Tema from '../../../models/Tema';
+import { toast } from 'react-toastify';
+import { addToken } from '../../../store/token/Action';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserState } from '../../../store/token/Reducer';
+
 
 
 function DeletarTema() {
-    let navigate = useNavigate();
-    const { id } = useParams<{id: string}>();
-    const [token, setToken] = useLocalStorage('token');
-    const [tema, setTema] = useState<Tema>()
+  let navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
-    useEffect(() => {
-        if (token == "") {
-            alert("Você precisa estar logado")
-            navigate("/login")
-    
+  const dispatch = useDispatch()
+
+  const token = useSelector<UserState, UserState["tokens"]>(
+    (state) => state.tokens
+  )
+
+  const [tema, setTema] = useState<Tema>()
+
+  useEffect(() => {
+    if (token == "") {
+      toast.error('Usuário não autenticado!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: 'colored',
+        progress: undefined,
+      });
+      navigate("/login")
+
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (id !== undefined) {
+      findById(id)
+    }
+  }, [id])
+
+  async function findById(id: string) {
+    try {
+      await buscaId(`/temas/${id}`, setTema, {
+        headers: {
+          'Authorization': token
         }
-    }, [token])
-
-    useEffect(() =>{
-        if(id !== undefined){
-            findById(id)
+      })
+    } catch (error: any) {
+      if (error.response?.status === 403) {
+        dispatch(addToken(''))
+      }
+    }
+  }
+  async function sim() {
+    navigate('/temas')
+    try {
+      await deleteId(`/temas/${id}`, {
+        headers: {
+          'Authorization': token
         }
-    }, [id])
+      });
+      toast.success('Tema deletado com sucesso!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: 'colored',
+        progress: undefined,
+      });
+    } catch (error: any) {
+      if (error.response?.status === 403) {
+        dispatch(addToken(''))
+      } else {
+        toast.error("Erro ao Deletar Tema", {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          theme: 'colored',
+          progress: undefined,
+        });
+      }
+    }
+  }
 
-    async function findById(id: string) {
-        buscaId(`/temas/${id}`, setTema, {
-            headers: {
-              'Authorization': token
-            }
-          })
-        }
+  function nao() {
+    navigate('/temas')
+  }
 
-        function sim() {
-          navigate('/temas')
-            deleteId(`/temas/${id}`, {
-              headers: {
-                'Authorization': token
-              }
-            });
-            alert('Tema deletado com sucesso');
-          }
-        
-          function nao() {
-            navigate('/temas')
-          }
-          
   return (
     <>
       <Box m={2}>
@@ -72,7 +123,7 @@ function DeletarTema() {
                 </Button>
               </Box>
               <Box mx={2}>
-                <Button  onClick={nao} variant="contained" size='large' color="secondary">
+                <Button onClick={nao} variant="contained" size='large' color="secondary">
                   Não
                 </Button>
               </Box>

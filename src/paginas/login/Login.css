@@ -1,5 +1,6 @@
 .textos1{
     font-weight: bold !important;
+    color: #0F8AC4 !important;
  }
  
  .imagem{
@@ -14,3 +15,5 @@
  .text-decorator-none{
      text-decoration: none;
  }
+
+ 

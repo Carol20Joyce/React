@@ -1,5 +1,5 @@
 .imagem2{
-    background-image: src"assets/images/eu2.jpeg";
+    background-image: src"imagens/";
     background-repeat: no-repeat;
     width: 100vh;
     min-height: 100vh;
@@ -9,8 +9,18 @@
 
 .textos2{
     font-weight: bold !important;
+    color: #0F8AC4 !important;
 }
 
 .btnCancelar{
     margin-right: 20px !important;
 }
+
+.caixa{
+    background-color: #F7F0D9;
+}
+
+.nome{
+    color: #0F8AC4 !important;
+}
+

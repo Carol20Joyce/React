@@ -22,10 +22,10 @@ function getModalStyle() {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      position: 'absolute',
-      width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
+      position: 'fixed',
+      width: 700,
+      backgroundColor: "#F7F0D9",
+      border: '1px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
@@ -59,7 +59,7 @@ function ModalPostagem () {
 
   return (
     <div>
-      <Button
+      <Button 
         variant="outlined"
         className="btnModal"
         onClick={handleOpen}>Nova Postagem</Button>
