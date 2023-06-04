@@ -111,12 +111,6 @@ function ListaPostagemPorTitulo() {
                                 <Typography variant="body2" component="p">
                                     {post.tema?.descricao}
                                 </Typography>
-                                <Typography variant="body2" component="p">
-                                    Postado por: {post.usuario?.nome}
-                                </Typography>
-                                <Typography variant="body1" component="p">
-                                    Data: {Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(post.data))}
-                                </Typography>
                             </CardContent>
                             <CardActions>
                                 <Box display="flex" justifyContent="center" mb={1.5}>
